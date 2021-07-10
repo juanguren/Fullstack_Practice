@@ -2,7 +2,7 @@
 
 ### Final project - React Globant bootcamp
 
-In order to run this project, please follow this instructions:
+In order to run the project, please follow this instructions:
 
 1. Clone this repo
 2. Move to its root and go to **view** `cd view` <br>
