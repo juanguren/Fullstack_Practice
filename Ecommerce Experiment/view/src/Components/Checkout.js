@@ -38,7 +38,7 @@ function Checkout({ selectedItems, finalOrderId }) {
       userFirstName,
     };
 
-    event.emit("checkout", orderConstruction);
+    event.log("checkout", orderConstruction);
   };
 
   return (
