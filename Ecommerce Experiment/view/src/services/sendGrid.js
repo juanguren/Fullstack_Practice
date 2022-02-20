@@ -11,7 +11,6 @@ const handleEmailOperation = async (payload) => {
     html: htmlData,
   };
 
-  console.log(messagePayload);
   const request = await fetch("/sendOrder", {
     method: "POST",
     body: JSON.stringify(messagePayload),

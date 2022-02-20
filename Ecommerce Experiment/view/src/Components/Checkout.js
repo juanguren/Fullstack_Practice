@@ -3,6 +3,21 @@ import { Fragment } from "react";
 import CheckCard from "../styles/CheckoutCard";
 import handleEmailOperation from "../services/sendGrid";
 import { useState } from "react";
+import EventLogger from "../events/logger";
+
+const event = new EventLogger();
+
+event.on("checkout", async (order) => {
+  const emailResponse = await handleEmailOperation(order);
+
+  if (emailResponse.Message) {
+    alert(`${emailResponse.Message}`);
+    sessionStorage.setItem("checkedItems", JSON.stringify([]));
+  } else {
+    alert("Sorry! Couldn't send email", `${emailResponse.Error}`);
+  }
+  window.location.reload();
+});
 
 function Checkout({ selectedItems, finalOrderId }) {
   const [userEmail, setUserEmail] = useState("");
@@ -23,15 +38,7 @@ function Checkout({ selectedItems, finalOrderId }) {
       userFirstName,
     };
 
-    const emailResponse = await handleEmailOperation(orderConstruction);
-
-    if (emailResponse.Message) {
-      alert(`${emailResponse.Message}`);
-      sessionStorage.setItem("checkedItems", JSON.stringify([]));
-    } else {
-      alert("Sorry! Couldn't send email", `${emailResponse.Error}`);
-    }
-    window.location.reload();
+    event.emit("checkout", orderConstruction);
   };
 
   return (
