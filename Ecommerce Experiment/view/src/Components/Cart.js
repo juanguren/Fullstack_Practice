@@ -33,9 +33,12 @@ class Cart extends Component {
     if (foundItem) {
       const { id: itemId } = foundItem;
       const itemExists = saveItemInLocal(itemId, foundItem);
-      this.setState({ firstItemInCart: true });
 
+      debugger;
+      this.setState({ firstItemInCart: true });
       if (itemExists) new Notification(`${foundItem.name} added`);
+      console.log("HEY");
+      debugger;
     }
   };
 
