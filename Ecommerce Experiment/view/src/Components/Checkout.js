@@ -7,6 +7,8 @@ import EventLogger from "../events/logger";
 
 const event = new EventLogger();
 
+// TODO: Is it possible to abstract the event logic into a single file?
+
 event.on("checkout", async (order) => {
   const emailResponse = await handleEmailOperation(order);
 
@@ -38,6 +40,7 @@ function Checkout({ selectedItems, finalOrderId }) {
       userFirstName,
     };
 
+    // Calls EventLogger .log method for emitting an event
     event.log("checkout", orderConstruction);
   };
 
