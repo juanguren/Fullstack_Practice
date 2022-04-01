@@ -37,7 +37,6 @@ class Cart extends Component {
       debugger;
       this.setState({ firstItemInCart: true });
       if (itemExists) new Notification(`${foundItem.name} added`);
-      console.log("HEY");
       debugger;
     }
   };
