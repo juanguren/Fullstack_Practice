@@ -4,20 +4,11 @@ http.on(404, "index.html");
 
 const { API_KEY } = params;
 
-// Create GET route and return users
-api.get("/api/users", async (req, res) => {
-  // Get users from Serverless Data
-  let result = await data.get("user:*", true);
-  // Return the results
-  res.send({
-    users: result.items,
-  });
-});
-
-api.get("/api/news", async (req, res) => {
+api.get("/api/news/:key", async (req, res) => {
+  const { key } = req.params;
   try {
     const news = await axios.get(
-      `https://newsapi.org/v2/everything?q=climate hope&apiKey=${API_KEY}`
+      `https://newsapi.org/v2/everything?q=${key}&apiKey=${API_KEY}`
     );
     res.send({
       news: news.data.articles,
