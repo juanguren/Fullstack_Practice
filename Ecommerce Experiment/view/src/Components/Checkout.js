@@ -5,15 +5,18 @@ import handleEmailOperation from "../services/sendGrid";
 import { useState } from "react";
 import EventLogger from "../events/logger";
 
+// * Check the event bus pattern: https://medium.com/elixirlabs/event-bus-implementation-s-d2854a9fafd5
 const event = new EventLogger();
 
-// TODO: Is it possible to abstract the event logic into a single file?
+// TODO: Is it possible to abstract the event logic into a single file? YES
 
 event.on("checkout", async (order) => {
   const emailResponse = await handleEmailOperation(order);
 
   if (emailResponse.Message) {
     alert(`${emailResponse.Message}`);
+    // TODO: sessionStorage.set() erases everything on session/local
+    // TODO: sessionStorage.removeItem('checkItems') removes the specific key
     sessionStorage.setItem("checkedItems", JSON.stringify([]));
   } else {
     alert("Sorry! Couldn't send email", `${emailResponse.Error}`);
